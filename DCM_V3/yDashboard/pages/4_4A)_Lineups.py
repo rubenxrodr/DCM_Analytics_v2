@@ -5,6 +5,7 @@ from html import escape
 from textwrap import dedent
 from matplotlib import cm
 from matplotlib.colors import Normalize, to_hex
+from matplotlib import colormaps
 
 
 # =========================================================

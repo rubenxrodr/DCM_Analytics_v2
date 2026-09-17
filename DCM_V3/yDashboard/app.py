@@ -24,6 +24,7 @@ st.markdown(
 
 IMAGE_PATH = (
     PROJECT_ROOT
+    / "DCM_V3"
     / "yDashboard"
     / "assets"
     / "FILM ROOM.png"

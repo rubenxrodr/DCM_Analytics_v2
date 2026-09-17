@@ -1,5 +1,7 @@
 import streamlit as st
+from pathlib import Path
 
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 st.set_page_config(
     page_title="LMU Women's Basketball Analytics",
@@ -20,14 +22,20 @@ st.markdown(
     """
 )
 
-col1, col2, col3 = st.columns([1, 2, 1])
-with col2: 
-
-    st.image(
-        "yDashboard/assets/FILM ROOM.png",
-        use_container_width=False,
-        
+IMAGE_PATH = (
+    PROJECT_ROOT
+    / "yDashboard"
+    / "assets"
+    / "FILM ROOM.png"
 )
+
+col1, col2, col3 = st.columns([1, 2, 1])
+
+with col2:
+    st.image(
+        IMAGE_PATH,
+        use_container_width=False,
+    )
 st.divider()
 
 st.subheader("Dashboard")

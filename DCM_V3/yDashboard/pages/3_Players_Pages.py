@@ -484,7 +484,7 @@ with col1:
 
     st.metric(
         "Middle Drives",
-        f"{player_data['Middle Drives']:.0f}",
+        f"{player['Middle Drives']:.0f}",
     )
 
 
@@ -494,7 +494,7 @@ with col2:
 
     st.metric(
         "Paint Touches",
-        f"{player_data['Paint Touches']:.0f}",
+        f"{player['Paint Touches']:.0f}",
     )
 
 
@@ -504,7 +504,7 @@ with col3:
 
     st.metric(
         "Uncontested 3s",
-        f"{player_data['Uncontested 3s']:.0f}",
+        f"{player['Uncontested 3s']:.0f}",
     )
 
 
@@ -529,7 +529,7 @@ with col1:
 
     st.metric(
         "Fouls",
-        f"{player_data['Fouls']:.0f}",
+        f"{player['Fouls']:.0f}",
     )
 
 
@@ -539,7 +539,7 @@ with col2:
 
     st.metric(
         "Deflections",
-        f"{player_data['Deflections']:.0f}",
+        f"{player['Deflections']:.0f}",
     )
 
 
@@ -549,7 +549,7 @@ with col3:
 
     st.metric(
         "Charges",
-        f"{player_data['Charges Taken']:.0f}",
+        f"{player['Charges Taken']:.0f}",
     )
 
 with col4:
@@ -558,16 +558,11 @@ with col4:
 
     st.metric(
         "Recovered",
-        f"{player_data['Loose Balls Recovered']:.0f}",
+        f"{player['Loose Balls Recovered']:.0f}",
     )
 
 
 st.divider()
-
-
-
-
-
 
 
 

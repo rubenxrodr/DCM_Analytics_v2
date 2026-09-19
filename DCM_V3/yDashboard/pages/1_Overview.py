@@ -77,7 +77,7 @@ with col2:
 
 with col3 : 
     st.metric(
-        "CompletedDefensive Possessions",
+        "Completed Defensive Possessions",
         f"{team['Completed Def Poss']:.0f}"
     )
 with col4:

@@ -126,8 +126,8 @@ if filtered_df.empty:
 # =========================================================
 
 filtered_df = filtered_df.sort_values(
-    "rel_PM_p40",
-    ascending=False
+    ["Minutes", "rel_PM_p40"],
+    ascending=[False, False]
 ).reset_index(drop=True)
 
 

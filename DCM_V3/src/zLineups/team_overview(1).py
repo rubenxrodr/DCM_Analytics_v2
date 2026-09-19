@@ -221,6 +221,63 @@ def calculate_exposure(df):
         ),
     }
 
+# ============================================================
+# PACE
+# ============================================================
+
+def calculate_pace(df):
+    """
+    Calculate offensive and defensive possession duration.
+
+    Uses ALL possessions, including incomplete possessions,
+    because this is an exposure/pace metric.
+    """
+
+    offense = df["Side"] == "Offense"
+    defense = df["Side"] == "Defense"
+
+    def duration_breakdown(mask):
+        durations = df.loc[mask, "Duration"]
+
+        total = len(durations)
+
+        short = (durations < 10).sum()
+        medium = ((durations >= 10) & (durations < 20)).sum()
+        long = (durations >= 20).sum()
+
+        return {
+            "Avg Poss Length": safe_divide(
+                durations.sum(),
+                total
+            ),
+            "0-10 Poss": short,
+            "0-10 Poss %": safe_divide(short, total),
+            "10-20 Poss": medium,
+            "10-20 Poss %": safe_divide(medium, total),
+            "20+ Poss": long,
+            "20+ Poss %": safe_divide(long, total),
+        }
+
+    offense_pace = duration_breakdown(offense)
+    defense_pace = duration_breakdown(defense)
+
+    return {
+        "Off Avg Poss Length": offense_pace["Avg Poss Length"],
+        "Off 0-10 Poss": offense_pace["0-10 Poss"],
+        "Off 0-10 Poss %": offense_pace["0-10 Poss %"],
+        "Off 10-20 Poss": offense_pace["10-20 Poss"],
+        "Off 10-20 Poss %": offense_pace["10-20 Poss %"],
+        "Off 20+ Poss": offense_pace["20+ Poss"],
+        "Off 20+ Poss %": offense_pace["20+ Poss %"],
+
+        "Def Avg Poss Length": defense_pace["Avg Poss Length"],
+        "Def 0-10 Poss": defense_pace["0-10 Poss"],
+        "Def 0-10 Poss %": defense_pace["0-10 Poss %"],
+        "Def 10-20 Poss": defense_pace["10-20 Poss"],
+        "Def 10-20 Poss %": defense_pace["10-20 Poss %"],
+        "Def 20+ Poss": defense_pace["20+ Poss"],
+        "Def 20+ Poss %": defense_pace["20+ Poss %"],
+    }
 
 # ============================================================
 # RAW COUNTS
@@ -778,6 +835,8 @@ def calculate_team_overview(input_file, output_file):
 
     dcm_occurrence = calculate_dcm_occurrence(df)
 
+    pace = calculate_pace(df)
+
     # --------------------------------------------------------
     # Combine all calculations
     # --------------------------------------------------------
@@ -793,6 +852,8 @@ def calculate_team_overview(input_file, output_file):
     result.update(stop_score)
 
     result.update(dcm_occurrence)
+
+    result.update(pace)
 
     result.update(raw_counts)
 
@@ -816,6 +877,23 @@ def calculate_team_overview(input_file, output_file):
         "Total Possessions",
        "Completed Off Poss",
         "Completed Def Poss",
+
+        # Pace
+        "Off Avg Poss Length",
+        "Off 0-10 Poss",
+        "Off 0-10 Poss %",
+        "Off 10-20 Poss",
+        "Off 10-20 Poss %",
+        "Off 20+ Poss",
+        "Off 20+ Poss %",
+        
+        "Def Avg Poss Length",
+        "Def 0-10 Poss",
+        "Def 0-10 Poss %",
+        "Def 10-20 Poss",
+        "Def 10-20 Poss %",
+        "Def 20+ Poss",
+        "Def 20+ Poss %",
 
         # Outcomes
         "PM_p40",

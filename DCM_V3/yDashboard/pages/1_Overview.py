@@ -61,38 +61,44 @@ st.divider()
 
 st.subheader("Team Snapshot")
 
-col1, col2, col3, col4, col5,col6 = st.columns(6)
+col1, col2, col3, col4, col5,col6, col7 = st.columns(7)
 
-with col1:
+with col1: 
+    st.metric(
+        "Practices Considered",
+        f"{team["Practices Considered"]:.0f}"
+    )
+with col2:
     st.metric(
         "Minutes",
         f"{team['Minutes']:.1f}"
     )
 teamtotalposs = team["Completed Def Poss"] + team["Completed Off Poss"]
-with col2:
+
+with col3:
     st.metric(
         "Possessions",
         f"{teamtotalposs:.0f}"
     )
 
-with col3 : 
+with col4 : 
     st.metric(
         "Completed Defensive Possessions",
         f"{team['Completed Def Poss']:.0f}"
     )
-with col4:
+with col5:
     st.metric(
         "PM / 40",
         f"{team['PM_p40']:.1f}"
     )
 
-with col5:
+with col6:
     st.metric(
         "Net RTG",
         f"{team['Net_RTG']:.1f}"
     )
 
-with col6:
+with col7:
     st.metric(
         "Plus / Minus",
         f"{team['Plus_Minus']:.0f}"

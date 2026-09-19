@@ -466,6 +466,112 @@ st.divider()
 
 
 # =========================================================
+# DEFENSIVE BREAKDOWN
+# =========================================================
+
+st.header("Defensive Breakdown")
+
+st.caption(
+    "Events the defense is trying to prevent."
+)
+
+col1, col2, col3 = st.columns(3)
+
+
+with col1:
+
+    st.subheader("Middle Drives")
+
+    st.metric(
+        "Middle Drives",
+        f"{player_data['Middle Drives']:.0f}",
+    )
+
+
+with col2:
+
+    st.subheader("Paint Touches")
+
+    st.metric(
+        "Paint Touches",
+        f"{player_data['Paint Touches']:.0f}",
+    )
+
+
+with col3:
+
+    st.subheader("Uncontested 3s")
+
+    st.metric(
+        "Uncontested 3s",
+        f"{player_data['Uncontested 3s']:.0f}",
+    )
+
+
+st.divider()
+
+# =========================================================
+# DEFENSIVE ACTIVITY
+# =========================================================
+
+st.header("Defensive Activity")
+
+st.caption(
+    "Defensive actions involving discipline and disruption."
+)
+
+col1, col2, col3, col4 = st.columns(4)
+
+
+with col1:
+
+    st.subheader("Fouls")
+
+    st.metric(
+        "Fouls",
+        f"{player_data['Fouls']:.0f}",
+    )
+
+
+with col2:
+
+    st.subheader("Deflections")
+
+    st.metric(
+        "Deflections",
+        f"{player_data['Deflections']:.0f}",
+    )
+
+
+with col3:
+
+    st.subheader("Charges Taken")
+
+    st.metric(
+        "Charges",
+        f"{player_data['Charges Taken']:.0f}",
+    )
+
+with col4:
+
+    st.subheader("Loose Balls")
+
+    st.metric(
+        "Recovered",
+        f"{player_data['Loose Balls Recovered']:.0f}",
+    )
+
+
+st.divider()
+
+
+
+
+
+
+
+
+# =========================================================
 # BOXOUT DETAIL
 # =========================================================
 

@@ -34,6 +34,7 @@ def load_possession_master(input_file):
     required_columns = [
         "Week",
         "PossessionID",
+        "Notes",
         "Side",
         "IncompleteResult",
         "Duration",
@@ -843,6 +844,12 @@ def calculate_team_overview(input_file, output_file):
 
     result = {}
 
+
+    # Each distinct Notes value represents one practice included in the
+    # possession master. ``nunique`` excludes missing values.
+    result["Practices Considered"] = df["Notes"].nunique()
+
+
     result.update(exposure)
 
     result.update(outcomes)
@@ -869,6 +876,7 @@ def calculate_team_overview(input_file, output_file):
     headline_columns = [
         # Identification
         "Team",
+        "Practices Considered",
 
         # Exposure
         "Minutes",
@@ -1017,13 +1025,13 @@ if __name__ == "__main__":
     input_file = (
         "/Users/rrodr102/Desktop/Python/"
         "DCM_V3/data/possession/master/"
-        "possession_master_week02.csv"
+        "possession_master.csv"
     )
 
     output_file = (
         "/Users/rrodr102/Desktop/Python/"
         "DCM_V3/data/lineup/"
-        "team_overview_4a_week02.csv"
+        "team_overview_4a.csv"
     )
 
     team_overview = calculate_team_overview(

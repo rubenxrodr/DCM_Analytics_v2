@@ -109,6 +109,67 @@ st.divider()
 
 
 # =========================================================
+# PACE
+# =========================================================
+
+st.subheader("Pace")
+
+pace_off, pace_def = st.columns(2)
+
+with pace_off:
+    st.markdown("**OFFENSE**")
+
+    st.metric(
+        "Avg Possession",
+        f"{row['Off Avg Poss Length']:.0f} sec"
+    )
+
+    st.caption("Possession Length")
+
+    st.write(
+        f"0–10 sec  •  {row['Off 0-10 Poss %']:.0%}"
+    )
+    st.progress(row["Off 0-10 Poss %"])
+
+    st.write(
+        f"10–20 sec  •  {row['Off 10-20 Poss %']:.0%}"
+    )
+    st.progress(row["Off 10-20 Poss %"])
+
+    st.write(
+        f"20+ sec  •  {row['Off 20+ Poss %']:.0%}"
+    )
+    st.progress(row["Off 20+ Poss %"])
+
+
+with pace_def:
+    st.markdown("**DEFENSE**")
+
+    st.metric(
+        "Avg Possession",
+        f"{row['Def Avg Poss Length']:.0f} sec"
+    )
+
+    st.caption("Possession Length")
+
+    st.write(
+        f"0–10 sec  •  {row['Def 0-10 Poss %']:.0%}"
+    )
+    st.progress(row["Def 0-10 Poss %"])
+
+    st.write(
+        f"10–20 sec  •  {row['Def 10-20 Poss %']:.0%}"
+    )
+    st.progress(row["Def 10-20 Poss %"])
+
+    st.write(
+        f"20+ sec  •  {row['Def 20+ Poss %']:.0%}"
+    )
+    st.progress(row["Def 20+ Poss %"])
+
+st.divider()
+
+# =========================================================
 # OFFENSE
 # =========================================================
 

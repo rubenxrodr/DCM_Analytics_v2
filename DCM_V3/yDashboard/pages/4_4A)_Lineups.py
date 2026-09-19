@@ -305,6 +305,10 @@ with best_col:
                 "rel_Off_RTG": "{:+.2f}",
                 "rel_Def_RTG": "{:+.2f}",
             }
+        ).background_gradient(
+            subset=["rel_PM_p40"],
+            cmap="RdYlGn",
+        
         ),
         use_container_width=True,
         hide_index=True,

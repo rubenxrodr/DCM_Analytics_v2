@@ -106,7 +106,7 @@ st.divider()
 # OFFENSE
 # =========================================================
 
-st.header("Offense")
+st.header("Offense [add a pace section for offense and defense]")
 
 col1, col2, col3, col4 = st.columns(4)
 

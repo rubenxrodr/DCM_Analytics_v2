@@ -66,7 +66,7 @@ col1, col2, col3, col4, col5,col6, col7 = st.columns(7)
 with col1: 
     st.metric(
         "Practices Considered",
-        f"      {team["Practices Considered"]:.0f}"
+        f"{team["Practices Considered"]:.0f}"
     )
 with col2:
     st.metric(

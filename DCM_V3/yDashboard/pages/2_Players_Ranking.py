@@ -104,8 +104,6 @@ with col2:
         
 )
 st.divider()
-
-
 # =========================================================
 # HOW DCM WORKS
 # =========================================================
@@ -114,32 +112,40 @@ st.header("How DCM Works")
 
 st.markdown(
     """
-    DCM is built in three stages:
+    DCM measures **how consistently we execute our defensive standard**.
+    It looks beyond traditional box-score stats to capture the defensive
+    actions that happen possession by possession.
     """
 )
 
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.subheader("1. Defensive Events")
+    st.subheader("1. Track the Possession")
+
     st.write(
-        "Track the defensive behaviors and outcomes that "
-        "define our defensive standard."
+        "We track the defensive actions that matter to our system — "
+        "contesting without fouling, protecting the paint, preventing "
+        "middle drives, creating deflections, finishing possessions, "
+        "and more."
     )
 
 with col2:
-    st.subheader("2. Normalize")
+    st.subheader("2. Account for Workload")
+
     st.write(
-        "Convert those events into frequencies and "
-        "per-possession measures so players can be compared "
-        "across different workloads."
+        "Players are evaluated based on their defensive opportunities "
+        "and possessions, so the numbers reflect how they perform "
+        "with the workload they actually receive."
     )
 
 with col3:
-    st.subheader("3. Combine")
+    st.subheader("3. Build the DCM")
+
     st.write(
-        "Standardize the components and combine them into "
-        "a single Defensive Completeness Metric."
+        "The defensive components are combined into one score that "
+        "summarizes how completely a player is executing our defensive "
+        "standard."
     )
 
 
@@ -154,23 +160,24 @@ st.header("Interpreting DCM")
 
 st.markdown(
     """
-    **Higher DCM indicates more complete defensive execution.**
+    ### What does the score mean?
 
-    DCM is not simply a count of defensive events. Each component
-    is evaluated relative to the player population and contributes
-    to an overall measure of defensive completeness.
+    **Higher DCM = more complete defensive execution.**
 
-    This means the DCM score should be interpreted alongside the
-    underlying defensive profile and the number of defensive
-    possessions on which the player was evaluated.
+    DCM is designed to answer:
+
+    > **"How consistently is this player doing the things we ask them
+    > to do defensively?"**
+
+    A player's DCM should always be viewed alongside their **defensive
+    profile** and **defensive possessions**.
+
+    A player's overall score tells us *how complete* their defense is.
+    The individual metrics tell us *why*.
     """
 )
 
-
-st.divider()
-
-
-# =========================================================
+st.divider()# =========================================================
 # RANKING
 # =========================================================
 

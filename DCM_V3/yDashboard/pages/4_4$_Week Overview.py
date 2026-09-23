@@ -363,8 +363,10 @@ st.divider()
 st.header("Defensive Process")
 
 st.caption(
-    "How frequently our defensive behaviors occurred across defensive possessions. \n
-    NOTE: THIS ONLY CONSIDERS COMPLETED DEFENSIVE POSSESSIONS. So if we got a deflection but a play got blown dead - it doesn't appear here, same thing with giving up middle or paint touch"
+    "How frequently our defensive behaviors occurred across defensive possessions."
+)
+st.caption(
+    "NOTE: THIS ONLY CONSIDERS COMPLETED DEFENSIVE POSSESSIONS. So if we got a deflection but a play got blown dead - it doesn't appear here, same thing with giving up middle or paint touch"
 )
 
 

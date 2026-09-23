@@ -368,7 +368,8 @@ st.caption(
 st.caption(
     "NOTE: THIS ONLY CONSIDERS COMPLETED DEFENSIVE POSSESSIONS. So if we got a deflection but a play got blown dead - it doesn't appear here, same thing with giving up middle or paint touch"
 )
-
+st.caption(
+    "Also note that multiple paint touches can occur in one possession but this is telling us what percent of our possessions contained at least one paint touch / middle / uc3 / deflection"
 
 # ---------------------------------------------------------
 # POSSESSION OCCURRENCE

@@ -531,6 +531,31 @@ display_columns = [
 
 dcm_display = dcm_week[display_columns].copy()
 
+# ---------------------------------------------------------
+# TOTALS ROW
+# ---------------------------------------------------------
+
+totals = {}
+
+for col in dcm_display.columns:
+
+    if col == "Player":
+        totals[col] = "TOTALS"
+
+    else:
+        totals[col] = pd.to_numeric(
+            dcm_display[col],
+            errors="coerce"
+        ).sum()
+
+dcm_display = pd.concat(
+    [
+        dcm_display,
+        pd.DataFrame([totals])
+    ],
+    ignore_index=True
+)
+
 st.dataframe(
     dcm_display,
     use_container_width=True,

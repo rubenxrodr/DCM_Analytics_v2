@@ -129,7 +129,7 @@ min_possessions = st.slider(
     "Minimum Possessions",
     min_value=0,
     max_value=max_possessions,
-    value=min(20, max_possessions),
+    value=min(45, max_possessions),
     step=1,
 )
 

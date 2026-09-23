@@ -384,7 +384,7 @@ st.markdown(
 # SELECTED LINEUP — KEY METRICS
 # =========================================================
 
-metric1, metric2, metric3 = st.columns(3)
+metric1, metric2, metric3,metric4 = st.columns(4)
 
 
 with metric1:
@@ -398,12 +398,19 @@ with metric1:
 with metric2:
 
     st.metric(
+        "rel Net RTG",
+        f'{lineup["rel_Net_RTG"]:+.2f}',
+    )
+
+with metric3:
+
+    st.metric(
         "rel ORTG",
         f'{lineup["rel_Off_RTG"]:+.2f}',
     )
 
 
-with metric3:
+with metric4:
 
     st.metric(
         "rel DRTG",

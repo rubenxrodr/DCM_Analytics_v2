@@ -16,7 +16,7 @@ import streamlit as st
 PAGE_DIR = Path(__file__).resolve().parent
 DASHBOARD_DIR = PAGE_DIR.parent
 
-DATA_PATH = DASHBOARD_DIR.parent / "data" / "lineup" / "individual_lineupdata2.csv"
+DATA_PATH = DASHBOARD_DIR.parent / "data" / "lineup" / "individual_lineupdata.csv"
 ASSETS_DIR = DASHBOARD_DIR / "assets"
 
 

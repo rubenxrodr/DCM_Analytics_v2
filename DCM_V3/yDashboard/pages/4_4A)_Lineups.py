@@ -216,7 +216,7 @@ if "rel_PM_p40" in display_df.columns:
                 rel_pm_color(value, max_abs)
                 for value in col
             ],
-            subset=["rel_PM_p40"],
+            subset=["rel_Net_RTG"],
         )
         .format(
             {

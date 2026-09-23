@@ -379,6 +379,9 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+st.caption(
+    "Note that a higher relative ORTG is good and a lower [negative] DRTG is good."
+)
 
 # =========================================================
 # SELECTED LINEUP — KEY METRICS

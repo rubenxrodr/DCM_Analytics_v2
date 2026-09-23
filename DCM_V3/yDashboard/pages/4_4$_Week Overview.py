@@ -370,6 +370,7 @@ st.caption(
 )
 st.caption(
     "Also note that multiple paint touches can occur in one possession but this is telling us what percent of our possessions contained at least one paint touch / middle / uc3 / deflection"
+)
 
 # ---------------------------------------------------------
 # POSSESSION OCCURRENCE

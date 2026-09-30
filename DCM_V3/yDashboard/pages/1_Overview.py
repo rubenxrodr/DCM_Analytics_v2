@@ -370,7 +370,7 @@ col1, col2, col3, col4,col5 = st.columns(5)
 with col2:
     st.metric(
         "Middle",
-        f"{team['Middle']:.0f}"
+        f"{team['Middle Poss']:.0f}"
     )
 
 with col3:

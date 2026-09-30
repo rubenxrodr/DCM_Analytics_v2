@@ -376,19 +376,19 @@ with col2:
 with col3:
     st.metric(
         "UC3",
-        f"{team['UC3']:.0f}"
+        f"{team['UC3 Poss']:.0f}"
     )
 
 with col4:
     st.metric(
         "Paint Touch",
-        f"{team['Paint Touch']:.0f}"
+        f"{team['Paint Touch Poss']:.0f}"
     )
 
 with col5:
     st.metric(
         "Deflections",
-        f"{team['Deflection']:.0f}"
+        f"{team['Deflection Poss']:.0f}"
     )
 
 

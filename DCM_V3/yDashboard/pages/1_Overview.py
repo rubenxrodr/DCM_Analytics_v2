@@ -445,7 +445,7 @@ event_analysis = pd.DataFrame({
 
 st.dataframe(
     event_analysis,
-    use_container_width=True,
+    width="stretch",
     hide_index=True,
     column_config={
         "Poss": st.column_config.NumberColumn(

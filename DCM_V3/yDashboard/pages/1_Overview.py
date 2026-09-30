@@ -396,6 +396,91 @@ st.divider()
 
 
 # =========================================================
+# DEFENSIVE PROCESS ANALYSIS
+# =========================================================
+
+st.header("Defensive Process Analysis")
+
+st.caption(
+    "Opponent outcomes on completed defensive possessions containing each "
+    "defensive process event. Events are not mutually exclusive."
+)
+
+# ---------------------------------------------------------
+# EVENT ANALYSIS TABLE
+# ---------------------------------------------------------
+
+event_analysis = pd.DataFrame({
+    "Event": [
+        "Middle",
+        "Uncontested 3",
+        "Paint Touch",
+        "Deflection",
+    ],
+    "Poss": [
+        team["Middle Poss"],
+        team["UC3 Poss"],
+        team["Paint Touch Poss"],
+        team["Deflection Poss"],
+    ],
+    "Score Rate": [
+        team["Middle Score Rate"],
+        team["UC3 Score Rate"],
+        team["Paint Touch Score Rate"],
+        team["Deflection Score Rate"],
+    ],
+    "TOV Rate": [
+        team["Middle TOV Rate"],
+        team["UC3 TOV Rate"],
+        team["Paint Touch TOV Rate"],
+        team["Deflection TOV Rate"],
+    ],
+    "FG%": [
+        team["Middle FG%"],
+        team["UC3 FG%"],
+        team["Paint Touch FG%"],
+        team["Deflection FG%"],
+    ],
+})
+
+st.dataframe(
+    event_analysis,
+    use_container_width=True,
+    hide_index=True,
+    column_config={
+        "Poss": st.column_config.NumberColumn(
+            "Poss",
+            format="%.0f",
+        ),
+        "Score Rate": st.column_config.NumberColumn(
+            "Score Rate",
+            format="%.0%",
+        ),
+        "TOV Rate": st.column_config.NumberColumn(
+            "TOV Rate",
+            format="%.0%",
+        ),
+        "FG%": st.column_config.NumberColumn(
+            "FG%",
+            format="%.0%",
+        ),
+    },
+)
+
+
+st.divider()
+
+
+# =========================================================
+# DEFENSIVE OUTCOMES
+# =========================================================
+
+#st.header("Defensive Outcomes")
+st.header("Turnover Margin and Stop vs Score Rate")
+
+
+
+# =========================================================
 # DEFENSIVE OUTCOMES
 # =========================================================
 

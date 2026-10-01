@@ -450,19 +450,19 @@ st.dataframe(
     column_config={
         "Poss": st.column_config.NumberColumn(
             "Poss",
-            format="%.0f",
+            format="0",
         ),
         "Score Rate": st.column_config.NumberColumn(
             "Score Rate",
-            format="%.0%",
+            format="0%",
         ),
         "TOV Rate": st.column_config.NumberColumn(
             "TOV Rate",
-            format="%.0%",
+            format="0%",
         ),
         "FG%": st.column_config.NumberColumn(
             "FG%",
-            format="%.0%",
+            format="0%",
         ),
     },
 )
@@ -471,45 +471,52 @@ st.dataframe(
 st.divider()
 
 
-# =========================================================
-# DEFENSIVE OUTCOMES
-# =========================================================
-
-#st.header("Defensive Outcomes")
-st.header("Turnover Margin and Stop vs Score Rate")
-
-
 
 # =========================================================
 # DEFENSIVE OUTCOMES
 # =========================================================
 
-#st.header("Defensive Outcomes")
 st.header("Turnover Margin and Stop vs Score Rate")
 
-col1, col2, col3, col4 = st.columns(4)
+opp_score_rate = 1 - team["Stop Rate"]
+
+opp_fg_pct = team["FGM Allowed"] / team["FGA Allowed"]
+lmu_fg_pct = team["FGM"] / team["FGA"]
+
+col1, col2, col3, col4, col5, col6 = st.columns(6)
 
 with col1:
+    st.metric(
+        "Opponent Score Rate",
+        f"{opp_score_rate:.0%}"
+    )
+
+with col3:
     st.metric(
         "TOV Forced",
         f"{team['TOV Forced']:.0f}"
     )
 
-with col2:
+with col5:
     st.metric(
-        "LMU Turnovers",
-        f"{team['TOV']:.0f}"
+        "Opponent FG%",
+        f"{opp_fg_pct:.0%}"
     )
 
-with col3:
-    oppscorerate = 1 - team["Stop Rate"]
+with col2:
     st.metric(
-        "Opponent Score Rate",
-        f"{oppscorerate:.0%}"
+        "LMU Score Rate",
+        f"{team['Score Rate']:.0%}"
     )
 
 with col4:
     st.metric(
-        "LMU Score Rate",
-        f"{team['Score Rate']:.0%}"
+        "LMU TOV",
+        f"{team['TOV']:.0f}"
+    )
+
+with col6:
+    st.metric(
+        "LMU FG%",
+        f"{lmu_fg_pct:.0%}"
     )

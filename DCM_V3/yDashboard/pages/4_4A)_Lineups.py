@@ -288,9 +288,9 @@ worst_df = (
    
     .sort_values(
         "rel_PM_p40",
-        ascending=False
+        ascending=True
     )
-    .tail(5)
+    .head(5)
     .copy()
 )
 

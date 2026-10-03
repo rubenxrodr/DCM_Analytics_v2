@@ -285,11 +285,12 @@ best_df = (
 
 worst_df = (
     filtered_df[best_columns]
-    .tail(5)
+   
     .sort_values(
         "rel_PM_p40",
         ascending=True
     )
+    .tail(5)
     .copy()
 )
 

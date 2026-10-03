@@ -451,7 +451,6 @@ st.dataframe(
     column_config={
         "Poss": st.column_config.NumberColumn(
             "Poss",
-            format="0",
         ),
         "Score Rate": st.column_config.NumberColumn(
             "Score Rate",

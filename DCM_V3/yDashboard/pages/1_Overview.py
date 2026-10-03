@@ -77,7 +77,7 @@ teamtotalposs = team["Completed Def Poss"] + team["Completed Off Poss"]
 
 with col3:
     st.metric(
-        "Possessions",
+        "[Completed] Possessions",
         f"{teamtotalposs:.0f}"
     )
 

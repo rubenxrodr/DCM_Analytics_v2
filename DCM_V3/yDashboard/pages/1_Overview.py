@@ -86,13 +86,13 @@ with col4 :
         "Completed Defensive Possessions",
         f"{team['Completed Def Poss']:.0f}"
     )
-with col5:
+with col6:
     st.metric(
         "PM / 40",
         f"{team['PM_p40']:.1f}"
     )
 
-with col6:
+with col5:
     st.metric(
         "Net RTG",
         f"{team['Net_RTG']:.1f}"

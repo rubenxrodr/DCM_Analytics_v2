@@ -274,6 +274,10 @@ best_columns = [
 
 best_df = (
     filtered_df[best_columns]
+    .sort_values(
+        "rel_PM_p40", 
+        ascending = False
+    )
     .head(5)
     .copy()
 )

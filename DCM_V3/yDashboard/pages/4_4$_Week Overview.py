@@ -421,25 +421,25 @@ col1, col2, col3, col4,col5 = st.columns(5)
 with col2:
     st.metric(
         "Middle",
-        f"{team['Middle']:.0f}"
+        f"{team['Middle Poss']:.0f}"
     )
 
 with col3:
     st.metric(
         "UC3",
-        f"{team['UC3']:.0f}"
+        f"{team['UC3 Poss']:.0f}"
     )
 
 with col4:
     st.metric(
         "Paint Touch",
-        f"{team['Paint Touch']:.0f}"
+        f"{team['Paint Touch Poss']:.0f}"
     )
 
 with col5:
     st.metric(
         "Deflections",
-        f"{team['Deflection']:.0f}"
+        f"{team['Deflection Poss']:.0f}"
     )
 
 

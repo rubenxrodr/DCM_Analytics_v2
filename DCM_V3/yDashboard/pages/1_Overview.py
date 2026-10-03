@@ -400,6 +400,7 @@ st.divider()
 # =========================================================
 
 st.header("Defensive Process Analysis")
+st.caption(f"{team['UC3 Poss']:.0f}")
 
 st.caption(
     "Opponent outcomes on completed defensive possessions containing each "

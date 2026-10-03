@@ -76,7 +76,7 @@ with filter_col1:
         "Minimum Minutes",
         min_value=0.0,
         max_value=float(df["Minutes"].max()),
-        value=2.5,
+        value=3.5,
         step=0.5,
     )
 
@@ -85,9 +85,9 @@ with filter_col2:
 
     min_possessions = st.number_input(
         "Minimum Possessions",
-        min_value=12,
+        min_value=8,
         max_value=int(df["Total Possessions"].max()),
-        value=8,
+        value=12,
         step=2,
     )
 

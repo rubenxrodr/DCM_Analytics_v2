@@ -50,7 +50,6 @@ st.markdown(
     - **Players Individual DCM** — 
     - **Aggregated Lineup Data** — 
     - **Individual Lineup Data** — 
-    - **Combo Data** — 
-    - **Progression** — longitudinal analysis
+    - **Combo Data** - 
     """
 )

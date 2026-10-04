@@ -223,9 +223,15 @@ def get_display_name(player_name):
 # PLAYER NAME
 # =========================================================
 
+
 player_name = player["Player"]
 
+display_name = get_display_name(player_name)
 
+if isinstance(player_name, str) and player_name.startswith("#"):
+    jersey_number = player_name.split(" ", 1)[0]
+else:
+    jersey_number = ""
 
 display_name = get_display_name(player_name)
 st.divider()

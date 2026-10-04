@@ -766,7 +766,7 @@ team_baseline_df = pd.DataFrame(team_baseline)
 team_baseline_display = team_baseline_df.copy()
 
 def format_frequency(row):
-    if row["DCM Metric"] == "Paint Touches per Poss.":
+    if row["DCM Metric"] in  ["Paint Touches per Poss.","Deflection per Poss."]:
         return f'{row["Frequency"]:.2f}'
     else:
         return f'{row["Frequency"] * 100:.1f}%'
@@ -848,7 +848,11 @@ for metric, direction in leader_config:
 
     for rank, (_, player) in enumerate(top_3.iterrows(), start=1):
 
-        display_name = player["Player"]
+        
+        player_name = player["Player"]
+
+        display_name = get_display_name(player_name)
+        
 
         player_image = (
             PROJECT_ROOT

@@ -772,7 +772,7 @@ team_baseline_df = pd.DataFrame(team_baseline)
 team_baseline_display = team_baseline_df.copy()
 
 def format_frequency(row):
-    if row["DCM Metric"] in  ["Paint Touches per Poss.","Deflection per Poss."]:
+    if row["DCM Metric"] in  ["Paint Touches per Poss.","Deflections per Poss."]:
         return f'{row["Frequency"]:.2f}'
     else:
         return f'{row["Frequency"] * 100:.1f}%'

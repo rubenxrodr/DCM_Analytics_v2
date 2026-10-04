@@ -178,38 +178,6 @@ player = df[
 
 
 
-# =========================================================
-# BUILD METRIC TABLE
-# =========================================================
-
-metric_rows = []
-
-for metric in metrics:
-
-    frequency_value = player[metric["frequency"]]
-    z_value = player[metric["z"]]
-    percentile_value = player[metric["percentile"]]
-
-    # Format frequency based on the type of metric
-
-    if metric["name"] in  ["Paint Touches per Poss.","Deflections per Poss."]:
-        frequency_display = f'{frequency_value:.2f}'
-    else:
-        frequency_display = f'{frequency_value:.1%}'
-
-    metric_rows.append(
-        {
-            "DCM Metric": metric["name"],
-            #"Count": int(player[metric["count"]]),
-            "Frequency": frequency_display,
-            "Z-Score": f"{z_value:+.2f}",
-            "Percentile": f"{percentile_value:.0f}",
-            "Direction": metric["direction"],
-        }
-    )
-
-metric_table = pd.DataFrame(metric_rows)
-
 
 
 def get_display_name(player_name):

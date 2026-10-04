@@ -794,7 +794,7 @@ leader_config = [
     ("UC3 Frequency", "lower"),
     ("Paint Touch Per Poss.", "lower"),
     ("Foul Frequency", "lower"),
-    ("Deflection Per Poss.", "higher"),
+    ("Deflections Per Poss.", "higher"),
     ("Charge Frequency", "higher"),
     ("Loose Ball Recovered Frequency", "higher"),
     ("Successful Boxout Frequency", "higher"),
@@ -806,7 +806,7 @@ denominator_map = {
     "UC3 Frequency": "On-Ball Opportunities",
     "Paint Touch Per Poss.": "Defensive Possessions",
     "Foul Frequency": "Defensive Possessions",
-    "Deflection Per Poss.": "Defensive Possessions",
+    "Deflections Per Poss.": "Defensive Possessions",
     "Charge Frequency": "Defensive Possessions",
     "Loose Ball Recovered Frequency": "Defensive Possessions",
     "Successful Boxout Frequency": "Boxout Opportunities",
@@ -874,7 +874,7 @@ def format_dcm_frequency(metric, value):
     if pd.isna(value):
         return "-"
 
-    if metric in ["Paint Touch Per Poss.","Deflection Per Poss."]:
+    if metric in ["Paint Touch Per Poss.","Deflections Per Poss."]:
         return f"{value:.2f}"
 
     return f"{value * 100:.1f}%"

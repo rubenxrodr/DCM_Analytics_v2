@@ -874,7 +874,7 @@ def format_dcm_frequency(metric, value):
     if pd.isna(value):
         return "-"
 
-    if metric == "Paint Touch Per Poss.":
+    if metric in ["Paint Touch Per Poss.","Deflection Per Poss."]:
         return f"{value:.2f}"
 
     return f"{value * 100:.1f}%"
@@ -889,7 +889,7 @@ st.caption(
     "Top 3 players for each DCM process metric based on frequency."
 )
 
-for metric, direction, denominator in leader_config:
+for metric, direction in leader_config:
 
     metric_rows = (
         leaders_df[

@@ -191,10 +191,11 @@ for metric in metrics:
     percentile_value = player[metric["percentile"]]
 
     # Format frequency based on the type of metric
-    if metric["name"] == "Successful Boxout %":
-        frequency_display = f"{frequency_value:.1%}"
+
+    if metric["name"] in  ["Paint Touches per Poss.","Deflections per Poss."]:
+        frequency_display = f'{frequency_value:.2f}'
     else:
-        frequency_display = f"{frequency_value:.2f}"
+        frequency_display = f'{frequency_value:.1%f}'
 
     metric_rows.append(
         {

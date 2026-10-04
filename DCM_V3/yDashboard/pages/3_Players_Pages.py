@@ -28,6 +28,14 @@ DATA_PATH = (
     / "dcm_metric.csv"
 )
 
+DCMSEASON = (
+    PROJECT_ROOT
+    / "data"
+    / "dcm"
+    / "master"
+    / "dcm_season.csv"
+)
+
 ASSETS_PATH = (
     PROJECT_ROOT
     / "yDashboard"
@@ -47,7 +55,7 @@ df = pd.read_csv(DATA_PATH)
 # the existing CSV to retain its current schema.
 df.columns = df.columns.str.lstrip("*")
 
-
+dcm_season = pd.read_csv(DCMSEASON)
 
 # =========================================================
 # METRIC DEFINITIONS
@@ -684,5 +692,293 @@ st.dataframe(
 
 
 st.divider()
+
+
+# =========================================================
+# TEAM DCM BASELINE
+# =========================================================
+
+team_dcm_metrics = [
+    {
+        "Metric": "Middle Drive Frequency",
+        "Numerator": "Middle Drives",
+        "Denominator": "On-Ball Opportunities",
+    },
+    {
+        "Metric": "Uncontested 3 Frequency",
+        "Numerator": "Uncontested 3s",
+        "Denominator": "On-Ball Opportunities",
+    },
+    {
+        "Metric": "Paint Touches per Poss.",
+        "Numerator": "Paint Touches",
+        "Denominator": "Defensive Possessions",
+    },
+    {
+        "Metric": "Foul Frequency",
+        "Numerator": "Fouls",
+        "Denominator": "Defensive Possessions",
+    },
+    {
+        "Metric": "Deflections per Poss.",
+        "Numerator": "Deflections",
+        "Denominator": "Defensive Possessions",
+    },
+    {
+        "Metric": "Charge Frequency",
+        "Numerator": "Charges Taken",
+        "Denominator": "Defensive Possessions",
+    },
+    {
+        "Metric": "Loose Ball Frequency",
+        "Numerator": "Loose Balls Recovered",
+        "Denominator": "Defensive Possessions",
+    },
+    {
+        "Metric": "Successful Boxout %",
+        "Numerator": "Successful Boxouts",
+        "Denominator": "Boxout Opportunities",
+    },
+    {
+        "Metric": "O-Board Allowed Frequency",
+        "Numerator": "O-Boards Allowed",
+        "Denominator": "Boxout Opportunities",
+    },
+]
+
+
+team_baseline = []
+
+for metric in team_dcm_metrics:
+
+    numerator = dcm_season[metric["Numerator"]].sum()
+    denominator = dcm_season[metric["Denominator"]].sum()
+
+    frequency = numerator / denominator if denominator > 0 else 0
+
+    team_baseline.append({
+        "DCM Metric": metric["Metric"],
+        "Frequency": frequency,
+    })
+
+team_baseline_df = pd.DataFrame(team_baseline)
+
+team_baseline_display = team_baseline_df.copy()
+
+def format_frequency(row):
+    if row["DCM Metric"] == "Paint Touches per Poss.":
+        return f'{row["Frequency"]:.2f}'
+    else:
+        return f'{row["Frequency"] * 100:.1f}%'
+
+team_baseline_display["Frequency"] = team_baseline_display.apply(
+    format_frequency,
+    axis=1
+)
+st.subheader("Team DCM Baseline")
+
+st.dataframe(
+    team_baseline_display,
+    hide_index=True,
+    use_container_width=True,
+)
+
+
+st.divider()
+# =========================================================
+# TEAM DCM LEADERS
+# =========================================================
+
+leader_config = [
+    ("Middle Drive Frequency", "lower"),
+    ("UC3 Frequency", "lower"),
+    ("Paint Touch Per Poss.", "lower"),
+    ("Foul Frequency", "lower"),
+    ("Deflection Per Poss.", "higher"),
+    ("Charge Frequency", "higher"),
+    ("Loose Ball Recovered Frequency", "higher"),
+    ("Successful Boxout Frequency", "higher"),
+    ("OBoard Allowed Frequency", "lower"),
+]
+
+denominator_map = {
+    "Middle Drive Frequency": "On-Ball Opportunities",
+    "UC3 Frequency": "On-Ball Opportunities",
+    "Paint Touch Per Poss.": "Defensive Possessions",
+    "Foul Frequency": "Defensive Possessions",
+    "Deflection Per Poss.": "Defensive Possessions",
+    "Charge Frequency": "Defensive Possessions",
+    "Loose Ball Recovered Frequency": "Defensive Possessions",
+    "Successful Boxout Frequency": "Boxout Opportunities",
+    "OBoard Allowed Frequency": "Boxout Opportunities",
+}
+
+
+leaders = []
+
+for metric, direction in leader_config:
+
+    # -----------------------------------------------------
+    # Only include players who have actual opportunities
+    # -----------------------------------------------------
+
+    denominator = denominator_map[metric]
+
+    eligible = dcm_season[
+        dcm_season[denominator] > 0
+    ].copy()
+
+    # Remove missing metric values
+    eligible = eligible.dropna(subset=[metric])
+
+    # -----------------------------------------------------
+    # Rank players
+    # -----------------------------------------------------
+
+    eligible = eligible.sort_values(
+        metric,
+        ascending=(direction == "lower")
+    )
+
+    top_3 = eligible.head(3)
+
+    # -----------------------------------------------------
+    # Store the three leaders
+    # -----------------------------------------------------
+
+    for rank, (_, player) in enumerate(top_3.iterrows(), start=1):
+
+        display_name = player["Player"]
+
+        player_image = (
+            PROJECT_ROOT
+            / "yDashboard"
+            / "assets"
+            / f"{display_name}.webp"
+        )
+
+        leaders.append({
+            "DCM Metric": metric,
+            "Rank": rank,
+            "Player": display_name,
+            "Frequency": player[metric],
+            "Image": player_image,
+        })
+
+
+leaders_df = pd.DataFrame(leaders)
+
+
+def format_dcm_frequency(metric, value):
+
+    if pd.isna(value):
+        return "-"
+
+    if metric == "Paint Touch Per Poss.":
+        return f"{value:.2f}"
+
+    return f"{value * 100:.1f}%"
+
+# =========================================================
+# TEAM DCM LEADERS DISPLAY
+# =========================================================
+
+st.markdown("### Team DCM Leaders")
+
+st.caption(
+    "Top 3 players for each DCM process metric based on frequency."
+)
+
+for metric, direction, denominator in leader_config:
+
+    metric_rows = (
+        leaders_df[
+            leaders_df["DCM Metric"] == metric
+        ]
+        .sort_values("Rank")
+    )
+
+    # -----------------------------------------------------
+    # Metric title
+    # -----------------------------------------------------
+
+    st.markdown(
+        f"""
+        <div style="
+            font-size:16px;
+            font-weight:700;
+            margin-top:18px;
+            margin-bottom:8px;
+        ">
+            {metric}
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # -----------------------------------------------------
+    # Three leaders
+    # -----------------------------------------------------
+
+    leader_cols = st.columns(3)
+
+    for col, (_, leader) in zip(
+        leader_cols,
+        metric_rows.iterrows()
+    ):
+
+        with col:
+
+            # Rank
+            st.markdown(
+                f"""
+                <div style="
+                    font-size:12px;
+                    font-weight:600;
+                    color:#666;
+                    margin-bottom:4px;
+                ">
+                    {int(leader["Rank"])}{"ST" if leader["Rank"] == 1 else "ND" if leader["Rank"] == 2 else "RD"}
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+            # Headshot
+            if leader["Image"].exists():
+                st.image(
+                    leader["Image"],
+                    width=70,
+                )
+
+            # Player name
+            st.markdown(
+                f"""
+                <div style="
+                    font-size:15px;
+                    font-weight:700;
+                    margin-top:-4px;
+                ">
+                    {leader["Player"]}
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+            # Frequency
+            st.markdown(
+                f"""
+                <div style="
+                    font-size:13px;
+                    color:#666;
+                ">
+                    {format_dcm_frequency(
+                        metric,
+                        leader["Frequency"]
+                    )}
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
 
 

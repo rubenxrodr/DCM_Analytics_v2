@@ -604,6 +604,7 @@ st.caption(
 # =========================================================
 # BUILD METRIC TABLE
 # =========================================================
+
 metric_rows = []
 
 for metric in metrics:
@@ -612,16 +613,22 @@ for metric in metrics:
     z_value = player[metric["z"]]
     percentile_value = player[metric["percentile"]]
 
-    # Format frequency based on the type of metric
-    if metric["name"] == "Successful Boxout %":
-        frequency_display = f"{frequency_value:.1%}"
-    else:
+    # -----------------------------------------------------
+    # Format Frequency
+    # -----------------------------------------------------
+
+    if metric["frequency"] in [
+        "Paint Touch Per Poss.",
+        "Deflection Per Poss.",
+    ]:
         frequency_display = f"{frequency_value:.2f}"
+
+    else:
+        frequency_display = f"{frequency_value:.1%}"
 
     metric_rows.append(
         {
             "DCM Metric": metric["name"],
-            #"Count": int(player[metric["count"]]),
             "Frequency": frequency_display,
             "Z-Score": f"{z_value:+.2f}",
             "Percentile": f"{percentile_value:.0f}",
@@ -630,7 +637,6 @@ for metric in metrics:
     )
 
 metric_table = pd.DataFrame(metric_rows)
-
 
 # =========================================================
 # DISPLAY TABLE

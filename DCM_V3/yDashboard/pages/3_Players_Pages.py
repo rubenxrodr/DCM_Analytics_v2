@@ -33,7 +33,7 @@ DCMSEASON = (
     / "data"
     / "dcm"
     / "master"
-    / "dcm_season.csv"
+    / "season_dcm.csv"
 )
 
 ASSETS_PATH = (

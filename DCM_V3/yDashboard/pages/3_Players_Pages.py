@@ -195,7 +195,7 @@ for metric in metrics:
     if metric["name"] in  ["Paint Touches per Poss.","Deflections per Poss."]:
         frequency_display = f'{frequency_value:.2f}'
     else:
-        frequency_display = f'{frequency_value:.1%f}'
+        frequency_display = f'{frequency_value:.1%}'
 
     metric_rows.append(
         {

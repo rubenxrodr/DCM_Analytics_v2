@@ -217,9 +217,6 @@ def get_display_name(player_name):
         parts = player_name.split(" ", 1)
         return parts[1] if len(parts) > 1 else player_name
 
-    else:
-    jersey_number = ""
-    display_name = player_name
 
     return player_name
 # =========================================================

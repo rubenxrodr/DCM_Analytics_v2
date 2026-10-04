@@ -211,23 +211,26 @@ metric_table = pd.DataFrame(metric_rows)
 
 
 
+def get_display_name(player_name):
 
+    if isinstance(player_name, str) and player_name.startswith("#"):
+        parts = player_name.split(" ", 1)
+        return parts[1] if len(parts) > 1 else player_name
+
+    else:
+    jersey_number = ""
+    display_name = player_name
+
+    return player_name
 # =========================================================
 # PLAYER NAME
 # =========================================================
 
 player_name = player["Player"]
 
-# Extract jersey number if the name begins with #number
-if isinstance(player_name, str) and player_name.startswith("#"):
-    parts = player_name.split(" ", 1)
-    jersey_number = parts[0]
-    display_name = parts[1] if len(parts) > 1 else player_name
-else:
-    jersey_number = ""
-    display_name = player_name
 
 
+display_name = get_display_name(player_name)
 st.divider()
 
 

@@ -756,7 +756,7 @@ team_baseline_display["Frequency"] = team_baseline_display.apply(
     format_frequency,
     axis=1
 )
-st.subheader("Team DCM Baseline")
+st.subheader("Team DCM Baseline (ignore this for now the math is wrong - 10/14)")
 
 st.dataframe(
     team_baseline_display,

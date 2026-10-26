@@ -43,8 +43,8 @@ WEEK_LABELS = {
 
 LINEUP_FILES = {
     "all": LINEUP_DIR / "lineup_data.csv",
-    91: LINEUP_DIR / "lineup_data_week00.csv",
-    92: LINEUP_DIR / "lineup_data_week91.csv"
+    00: LINEUP_DIR / "lineup_data_week00.csv",
+    91: LINEUP_DIR / "lineup_data_week91.csv"
 }
 
 

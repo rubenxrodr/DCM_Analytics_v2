@@ -42,7 +42,7 @@ team = df.iloc[0]
 col1, col2 = st.columns([5, 1])
 
 with col1:
-    st.title("Team Overview [As of CBU Scrimmage \n [missing 4 practices leading up to CBU scrimmage]")
+    st.title("Team Overview [As of CBU Scrimmage [missing 4 practices leading up to CBU scrimmage]")
 
 IMAGE_PATH = BASE_DIR / "yDashboard" / "assets" / "athletics.png"
 

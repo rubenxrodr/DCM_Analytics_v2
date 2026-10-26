@@ -18,13 +18,14 @@ st.set_page_config(
 )
 
 
+
 # =========================================================
 # PROJECT PATHS
 # =========================================================
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
+LINEUP_DIR = PROJECT_ROOT / "data" / "lineup"
 
-LINEUP_PATH = PROJECT_ROOT / "data" / "lineup" / "lineup_data.csv"
 
 # =========================================================
 # WEEK LABELS
@@ -32,8 +33,8 @@ LINEUP_PATH = PROJECT_ROOT / "data" / "lineup" / "lineup_data.csv"
 
 WEEK_LABELS = {
     "all": "All Weeks",
-    00: "Intersquad+UCSD+CBU",
-    91: "UCSD+CBU"
+    0: "Intersquad + UCSD + CBU",
+    91: "UCSD + CBU",
 }
 
 
@@ -42,9 +43,9 @@ WEEK_LABELS = {
 # =========================================================
 
 LINEUP_FILES = {
-    "all": LINEUP_PATH / "lineup_data.csv",
-    00: LINEUP_PATH / "lineup_data_week00.csv",
-    91: LINEUP_PATH / "lineup_data_week91.csv"
+    "all": LINEUP_DIR / "lineup_data.csv",
+    0: LINEUP_DIR / "lineup_data_week00.csv",
+    91: LINEUP_DIR / "lineup_data_week91.csv",
 }
 
 
@@ -63,7 +64,43 @@ def load_lineup_data(file_path: str):
     return df
 
 
-#df = load_lineup_data()
+# =========================================================
+# WEEK SELECTOR
+# =========================================================
+
+# Only show options whose files exist.
+available_options = [
+    key
+    for key, path in LINEUP_FILES.items()
+    if path.is_file()
+]
+
+if not available_options:
+    st.error(
+        f"No lineup CSV files were found in: {LINEUP_DIR}"
+    )
+    st.stop()
+
+selected_week = st.selectbox(
+    "Select Week",
+    options=available_options,
+    index=0,
+    format_func=lambda x: WEEK_LABELS.get(
+        x, f"Week {x}"
+    ),
+)
+
+selected_lineup_path = LINEUP_FILES[selected_week]
+
+df = load_lineup_data(str(selected_lineup_path))
+
+st.caption(
+    f"Showing: {WEEK_LABELS.get(selected_week, f'Week {selected_week}')}"
+)
+
+if df.empty:
+    st.warning("No lineup data is available for this selection.")
+    st.stop()
 
 
 # =========================================================

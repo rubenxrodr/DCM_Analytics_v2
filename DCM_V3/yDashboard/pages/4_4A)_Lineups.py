@@ -26,19 +26,39 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 LINEUP_PATH = PROJECT_ROOT / "data" / "lineup" / "lineup_data.csv"
 
+# =========================================================
+# WEEK LABELS
+# =========================================================
+
+WEEK_LABELS = {
+    "all": "All Weeks",
+    00: "Intersquad+UCSD+CBU",
+    91: "UCSD+CBU"
+}
+
+
+# =========================================================
+# AVAILABLE LINEUP FILES
+# =========================================================
+
+LINEUP_FILES = {
+    "all": LINEUP_DIR / "lineup_data.csv",
+    91: LINEUP_DIR / "lineup_data_week91.csv",
+    92: LINEUP_DIR / "lineup_data_week92.csv",
+    93: LINEUP_DIR / "lineup_data_week93.csv",
+}
+
 
 # =========================================================
 # LOAD DATA
 # =========================================================
 
 @st.cache_data
-def load_lineup_data():
+def load_lineup_data(file_path: str):
 
-    df = pd.read_csv(LINEUP_PATH)
+    df = pd.read_csv(file_path)
 
     # Remove leading * from column names.
-    # This keeps the displayed dashboard names clean while
-    # preserving the underlying data.
     df.columns = df.columns.str.lstrip("*")
 
     return df
@@ -59,6 +79,34 @@ st.markdown(
     offensive, defensive, and overall team outcomes.
     """
 )
+
+# =========================================================
+# WEEK SELECTOR
+# =========================================================
+
+available_options = [
+    key for key, path in LINEUP_FILES.items()
+    if path.exists()
+]
+
+selected_week = st.selectbox(
+    "Select Week",
+    options=available_options,
+    index=0,
+    format_func=lambda x: WEEK_LABELS.get(
+        x, f"Week {x}"
+    ),
+)
+
+selected_lineup_path = LINEUP_FILES[selected_week]
+
+df = load_lineup_data(str(selected_lineup_path))
+
+st.caption(f"Showing: {WEEK_LABELS.get(selected_week, f'Week {selected_week}')}")
+
+if df.empty:
+    st.warning("No lineup data is available for this selection.")
+    st.stop()
 
 
 # =========================================================

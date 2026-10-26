@@ -69,9 +69,7 @@ dcm_master = dcm_master.dropna(
 dcm_master["Week"] = dcm_master["Week"].astype(int)
 
 
-# =========================================================
-# WEEK SELECTOR
-# =========================================================
+
 # =========================================================
 # TITLE
 # =========================================================
@@ -92,13 +90,23 @@ st.caption(
 
 st.divider()
 
+
+# =========================================================
+# WEEK SELECTOR
+# =========================================================
+
 WEEK_LABELS = {
-    00: "Intersquad+UCSD+CBU",
-    91: "UCSD+CBU"
+    0: "Intersquad + UCSD + CBU",
+    91: "UCSD + CBU",
 }
+
 available_weeks = sorted(
     dcm_master["Week"].unique()
 )
+
+if not available_weeks:
+    st.error("No weeks are available in dcm_master.csv.")
+    st.stop()
 
 selected_week = st.selectbox(
     "Week",
@@ -108,7 +116,9 @@ selected_week = st.selectbox(
         int(x),
         f"Week {int(x)}",
     ),
+    key="week_overview_selector",
 )
+
 
 
 # =========================================================
@@ -119,29 +129,25 @@ team_overview_filename = (
     f"team_overview_4a_week{int(selected_week):02d}.csv"
 )
 
-TEAM_OVERVIEW_PATH = (
-    TEAM_OVERVIEW_DIR
-    / team_overview_filename
-)
+TEAM_OVERVIEW_PATH = TEAM_OVERVIEW_DIR / team_overview_filename
 
-if TEAM_OVERVIEW_PATH.exists():
-
-    team_overview = pd.read_csv(
-        TEAM_OVERVIEW_PATH
+if not TEAM_OVERVIEW_PATH.is_file():
+    st.error(
+        f"Team Overview file not found: {team_overview_filename}"
     )
+    st.caption(f"Expected location: {TEAM_OVERVIEW_PATH}")
+    st.stop()
 
-    team_overview.columns = (
-        team_overview.columns.str.lstrip("*")
-    )
+team_overview = pd.read_csv(TEAM_OVERVIEW_PATH)
+team_overview.columns = team_overview.columns.str.lstrip("*")
 
-else:
+if team_overview.empty:
+    st.error(f"{team_overview_filename} contains no team data.")
+    st.stop()
 
-    team_overview = None
+# Use the first row for team-level metrics.
+team = team_overview.iloc[0]
 
-    st.warning(
-        f"Team Overview data for Week {int(selected_week)} "
-        "is not available yet."
-    )
 
 
 # =========================================================
@@ -157,22 +163,21 @@ dcm_week = dcm_master[
 # TEAM OVERVIEW
 # =========================================================
 
-if team_overview is not None:
 
-    st.divider()
+st.divider()
 
-  
-    # -----------------------------------------------------
-    # TEAM DATA
-    # -----------------------------------------------------
 
-    # The weekly team overview file should contain one
-    # team-level row.
-    #
-    # If multiple rows exist, use the first row for the
-    # team-level cards.
+# -----------------------------------------------------
+# TEAM DATA
+# -----------------------------------------------------
 
-    team = team_overview.iloc[0]
+# The weekly team overview file should contain one
+# team-level row.
+#
+# If multiple rows exist, use the first row for the
+# team-level cards.
+
+team = team_overview.iloc[0]
 
 
 

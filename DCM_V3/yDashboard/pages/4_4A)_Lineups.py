@@ -64,44 +64,6 @@ def load_lineup_data(file_path: str):
     return df
 
 
-# =========================================================
-# WEEK SELECTOR
-# =========================================================
-
-# Only show options whose files exist.
-available_options = [
-    key
-    for key, path in LINEUP_FILES.items()
-    if path.is_file()
-]
-
-if not available_options:
-    st.error(
-        f"No lineup CSV files were found in: {LINEUP_DIR}"
-    )
-    st.stop()
-
-selected_week = st.selectbox(
-    "Select Week",
-    options=available_options,
-    index=0,
-    format_func=lambda x: WEEK_LABELS.get(
-        x, f"Week {x}"
-    ),
-)
-
-selected_lineup_path = LINEUP_FILES[selected_week]
-
-df = load_lineup_data(str(selected_lineup_path))
-
-st.caption(
-    f"Showing: {WEEK_LABELS.get(selected_week, f'Week {selected_week}')}"
-)
-
-if df.empty:
-    st.warning("No lineup data is available for this selection.")
-    st.stop()
-
 
 # =========================================================
 # TITLE

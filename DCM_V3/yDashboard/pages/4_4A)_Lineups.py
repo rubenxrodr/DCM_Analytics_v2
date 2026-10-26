@@ -63,7 +63,7 @@ def load_lineup_data(file_path: str):
     return df
 
 
-df = load_lineup_data()
+#df = load_lineup_data()
 
 
 # =========================================================

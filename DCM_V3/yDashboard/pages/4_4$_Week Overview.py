@@ -92,7 +92,10 @@ st.caption(
 
 st.divider()
 
-
+WEEK_LABELS = {
+    00: "Intersquad+UCSD+CBU",
+    91: "UCSD+CBU"
+}
 available_weeks = sorted(
     dcm_master["Week"].unique()
 )
@@ -101,7 +104,10 @@ selected_week = st.selectbox(
     "Week",
     available_weeks,
     index=len(available_weeks) - 1,
-    format_func=lambda x: f"Week {int(x)}",
+    format_func=lambda x: WEEK_LABELS.get(
+        int(x),
+        f"Week {int(x)}",
+    ),
 )
 
 
